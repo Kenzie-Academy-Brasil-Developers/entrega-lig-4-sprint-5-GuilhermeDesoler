@@ -20,29 +20,31 @@ const gameBoard = () => {
 gameBoard()
 
 const columns = document.querySelectorAll('section')
-console.log(columns)
 
 let player = false
 
 const position = (evt) => {
-    let click = evt.target
-    console.log(evt)
-
-    if (click.className === 'cell' && click.childElementCount === 0) {
-        if (player === false) {
-            player = true
-            let circleRed =document.createElement('div')
-            circleRed.classList.add('red')
-            click.appendChild(circleRed)
-        } else if (player === true) {
-            player = false
-            let cirlceBlack =document.createElement('div')
-            cirlceBlack.classList.add('black')
-            click.appendChild(cirlceBlack)
-        }
-    } else {
-        alert("Está casa já está ocupada!!")
+    let click = evt.target.parentNode.childNodes
+    console.log(evt.target.parentNode.childNodes)
+    
+    for (let i = 0;i < click.length; i++) {
+        if (click[i].firstChild === null) {
+            if (player === false) {
+                player = true
+                let circleRed =document.createElement('div')
+                circleRed.classList.add('red')
+                click[i].appendChild(circleRed)
+                break;
+            } else if (player === true) {
+                player = false
+                let cirlceBlack =document.createElement('div')
+                cirlceBlack.classList.add('black')
+                click[i].appendChild(cirlceBlack)
+                break;
+            }
+        } 
     }
+    
 }
 
 columns.forEach((torre) => {
