@@ -17,3 +17,20 @@ main {
     border: 1px solid;
     box-shadow: 1px 2px 2px 1px #757575b9;
 }
+
+
+.red {
+    background-color: red;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+.black {
+    background-color: black;
+    height: 38px;
+    width: 38px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
