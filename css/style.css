@@ -20,7 +20,9 @@ main {
 
 
 .red {
-    background-color: red;
+    background: rgb(227,13,10);
+    background: radial-gradient(circle, rgba(227,13,10,1) 14%, rgba(182,4,28,1) 37%, rgba(255,12,0,1) 88%);
+    /* background-color: red; */
     height: 38px;
     width: 38px;
     border-radius: 50%;
