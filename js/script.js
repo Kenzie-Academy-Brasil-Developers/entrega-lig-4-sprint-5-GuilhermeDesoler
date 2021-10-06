@@ -24,11 +24,10 @@ const columns = document.querySelectorAll('section')
 let player = false
 
 const position = (evt) => {
-    let click = evt.target.parentNode.childNodes
-    console.log(evt.target.parentNode.childNodes)
+    let click = evt.target.parentNode.closest('section').childNodes
     
     for (let i = 0;i < click.length; i++) {
-        if (click[i].firstChild === null) {
+        if (click[i].childElementCount === 0) {
             if (player === false) {
                 player = true
                 let circleRed =document.createElement('div')
