@@ -28,7 +28,7 @@ const position = (evt) => {
     console.log(evt.target.parentNode.childNodes)
     
     for (let i = 0;i < click.length; i++) {
-        if (click[i].firstChild === null) {
+        if (click[i].firstChild === null && click[i].parentElement.nodeName === 'SECTION') {
             if (player === false) {
                 player = true
                 let circleRed =document.createElement('div')
