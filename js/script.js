@@ -19,11 +19,12 @@ function gameBoard() {
 
 gameBoard()
 
-const columns = document.querySelectorAll('section')
 
-let player = false
-let position = 0
-let discCount = 0
+const columns    = document.querySelectorAll('section')
+
+let player       = false
+let position     = 0
+let discCount    = 0
 let currentColor = ''
 
 function position2(evt) {
@@ -64,7 +65,7 @@ function position2(evt) {
    
 
     verticalWin(click, position)
-    //horizontalWin(click, position)
+    horizontalWin(click, position)
     diagonal1(click, position)
     diagonal2(click, position)
     
