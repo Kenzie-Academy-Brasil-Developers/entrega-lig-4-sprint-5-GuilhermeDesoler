@@ -64,6 +64,7 @@ function position2(evt) {
 
                 currentColor = 'red'
                 position = i
+                discCount += 1
 
                 break;
             } else if (player === true) {
@@ -74,19 +75,16 @@ function position2(evt) {
 
                 currentColor = 'black'
                 position = i
+                discCount += 1
 
                 break;
             }
         } 
     }
 
-    discCount += 1
 
-    if(discCount === 42) {
-        draw()
-        stopGame(true)
-    }
-   
+    draw() 
+    console.log(discCount)  
     changePlayer()
 
     verticalWin(click, position)
@@ -390,9 +388,10 @@ function victory(closesColor) {
 }
 
 function draw() {
-
-    console.log("it's a Draw")
-
+    if(discCount === 42) {
+        stopGame(true)
+        setTimeout(() => {openModal()}, 1000);
+    }
 }
 
 function stopGame(cond) {
@@ -424,4 +423,5 @@ function resetGame() {
     changePlayer()
     gameBoard()
     stopGame(false)
+    closeModal();
 }
