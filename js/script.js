@@ -19,6 +19,7 @@ function gameBoard() {
 
 gameBoard()
 
+
 const columns    = document.querySelectorAll('section')
 
 let player       = false
@@ -374,7 +375,7 @@ function draw() {
 }
 
 function stopGame() {
-    
+
     for(let k = 0; k < 7; k++) {
     
         console.log('StopGame')
