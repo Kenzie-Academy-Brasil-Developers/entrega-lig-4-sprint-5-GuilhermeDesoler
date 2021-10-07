@@ -25,11 +25,11 @@ for (let i = 0; i < 11; i++) {
 
 }
 
-function closeModal(){
+function closeModal() {
     document.getElementById('bgModal').style.top = '-100%'
 }
 
-function openModal(){
+function openModal() {
   document.getElementById('bgModal').style.top = '0%'
   
   const modal = document.getElementById('modal');
