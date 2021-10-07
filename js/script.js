@@ -1,5 +1,32 @@
 const main = document.getElementById('main')
 
+const header = document.getElementById('header')
+
+const currentPlayer = document.createElement('div')
+const playerText = document.createElement('h3')
+const currentDisc = document.createElement('div')
+currentPlayer.classList.add('player')
+currentPlayer.appendChild(playerText)
+currentPlayer.appendChild(currentDisc)
+
+header.appendChild(currentPlayer)
+
+let player       = false
+
+function changePlayer() {
+    if(!player) {
+        playerText.innerText = ''
+        playerText.innerText = 'Player 1:'
+        currentDisc.classList = 'div-red'
+    } else if(player) {
+        playerText.innerText = ''
+        playerText.innerText = 'Player 2:'
+        currentDisc.classList = 'div-black'
+    }
+}
+
+changePlayer()
+
 function gameBoard() {
     for (let i = 0; i < 7; i++){
         let column = document.createElement('section')
@@ -19,10 +46,7 @@ function gameBoard() {
 
 gameBoard()
 
-
 const columns    = document.querySelectorAll('section')
-
-let player       = false
 let position     = 0
 let discCount    = 0
 let currentColor = ''
@@ -60,9 +84,10 @@ function position2(evt) {
 
     if(discCount === 42) {
         draw()
-        stopGame()
+        stopGame(true)
     }
    
+    changePlayer()
 
     verticalWin(click, position)
     horizontalWin(click, position)
@@ -90,7 +115,7 @@ function verticalWin(array, position) {
 
             if(closesColor === 4) {
                 console.log('Vertical Win!!!')
-                stopGame()
+                stopGame(true)
             }
 
         } else if(discBeforeColor !== currentColor) {
@@ -374,13 +399,33 @@ function draw() {
 
 }
 
-function stopGame() {
-
-    for(let k = 0; k < 7; k++) {
+function stopGame(cond) {
     
-        console.log('StopGame')
-        document.getElementById(`column${k}`).removeEventListener('click', position2)
-        
+    if(cond) {
+        for(let k = 0; k < 7; k++) {
+
+            document.getElementById(`column${k}`).removeEventListener('click', position2)
+            
+        }
+    
+    } else {
+        for(let k = 0; k < 7; k++) {
+
+            document.getElementById(`column${k}`).addEventListener('click', position2)
+            
+        }
+    
     }
 
+}
+
+function resetGame() {
+    main.innerHTML = ''
+    position     = 0
+    discCount    = 0
+    currentColor = ''
+    player       = false
+    changePlayer()
+    gameBoard()
+    stopGame(false)
 }
