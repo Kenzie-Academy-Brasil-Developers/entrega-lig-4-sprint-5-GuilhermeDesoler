@@ -28,3 +28,32 @@ for (let i = 0; i < 11; i++) {
 function closeModal(){
     document.getElementById('bgModal').style.top = '-100%'
 }
+
+function openModal(){
+  document.getElementById('bgModal').style.top = '0%'
+  
+  const modal = document.getElementById('modal');
+  modal.innerHTML = "";
+  modal.style.justifyContent = "space-around"
+
+  const lig4 = document.createElement('h1');
+  lig4.innerText = "Lig-4"
+  modal.appendChild(lig4);
+
+  const text = document.createElement('p');
+  text.classList.add('textFinal')
+
+  if(currentColor === 'red') {
+    text.innerText = "Player 1 wins!!"
+  } else if (currentColor === 'black') {
+    text.innerText = "Player 2 wins!!"
+  }
+
+  modal.appendChild(text);
+
+  const resetButton = document.createElement('button');
+  resetButton.classList.add('reset-button');
+  resetButton.innerText = "Play again"
+  // resetButton.onclick = closeModal();
+  modal.appendChild(resetButton);
+}

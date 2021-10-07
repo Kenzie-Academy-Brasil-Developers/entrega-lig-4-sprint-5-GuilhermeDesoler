@@ -104,7 +104,7 @@ main {
     padding: 0 15px;
 }
 
-.play-button {
+.play-button, .reset-button {
     font-family: 'Satisfy', cursive;
     font-size: 1.3rem;
     background-color: #b93333f8;
@@ -114,6 +114,12 @@ main {
     border-radius: 5px;
     align-self: center;
 
+}
+
+.textFinal {
+    font-family: 'Satisfy', cursive;
+    font-size: 2rem;
+    text-align: center;
 }
 
 .animation-bg li{
