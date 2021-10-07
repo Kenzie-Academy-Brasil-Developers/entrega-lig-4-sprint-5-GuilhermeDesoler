@@ -1,27 +1,26 @@
-const main = document.getElementById('main')
+const main              = document.getElementById('main')
+const header            = document.getElementById('header')
+const currentPlayer     = document.createElement('div')
+const playerText        = document.createElement('h3')
+const currentDisc       = document.createElement('div')
 
-const header = document.getElementById('header')
-
-const currentPlayer = document.createElement('div')
-const playerText = document.createElement('h3')
-const currentDisc = document.createElement('div')
 currentPlayer.classList.add('player')
 currentPlayer.appendChild(playerText)
 currentPlayer.appendChild(currentDisc)
 
 header.appendChild(currentPlayer)
 
-let player       = false
+let player  = false
 
 function changePlayer() {
     if(!player) {
-        playerText.innerText = ''
-        playerText.innerText = 'Player 1:'
-        currentDisc.classList = 'div-red'
+        playerText.innerText    = ''
+        playerText.innerText    = 'Player 1:'
+        currentDisc.classList   = 'div-red'
     } else if(player) {
-        playerText.innerText = ''
-        playerText.innerText = 'Player 2:'
-        currentDisc.classList = 'div-black'
+        playerText.innerText    = ''
+        playerText.innerText    = 'Player 2:'
+        currentDisc.classList   = 'div-black'
     }
 }
 
@@ -29,13 +28,15 @@ changePlayer()
 
 function gameBoard() {
     for (let i = 0; i < 7; i++){
-        let column = document.createElement('section')
-        column.id = `column${i}`
+
+        let column      = document.createElement('section')
+        column.id       = `column${i}`
         column.classList.add('column')
         
         for(let j = 0; j < 6; j++){
-            let cell = document.createElement('div')
-            cell.id = `cell${j}`
+
+            let cell    = document.createElement('div')
+            cell.id     = `cell${j}`
             cell.classList.add('cell')
 
             column.appendChild(cell)
@@ -46,47 +47,49 @@ function gameBoard() {
 
 gameBoard()
 
-const columns    = document.querySelectorAll('section')
-let position     = 0
-let discCount    = 0
-let currentColor = ''
+const columns       = document.querySelectorAll('section')
+let position        = 0
+let discCount       = 0
+let currentColor    = ''
 
 function position2(evt) {
-    let click = evt.target.parentNode.closest('section').childNodes
+    let click   = evt.target.parentNode.closest('section').childNodes
     
     for (let i = 5; i >= 0; i--) {
         if (click[i].childElementCount === 0) {
             if (player === false) {
                 player = true
-                let circleRed =document.createElement('div')
+                let circleRed = document.createElement('div')
                 circleRed.classList.add('red')
                 click[i].appendChild(circleRed)
 
-                currentColor = 'red'
-                position = i
-                discCount += 1
+                currentColor    = 'red'
+                position        = i
+                discCount       += 1
+                stopGame(true)
 
                 break;
             } else if (player === true) {
-                player = false
-                let cirlceBlack =document.createElement('div')
+                player          = false
+                let cirlceBlack = document.createElement('div')
                 cirlceBlack.classList.add('black')
                 click[i].appendChild(cirlceBlack)
 
                 currentColor = 'black'
                 position = i
                 discCount += 1
+                stopGame(true)
 
                 break;
             }
         } 
     }
 
+    setTimeout(() => {stopGame(false)}, 1000)
 
-    draw() 
-    console.log(discCount)  
     changePlayer()
 
+    draw() 
     verticalWin(click, position)
     horizontalWin(click, position)
     diagonal1(click, position)
@@ -94,27 +97,23 @@ function position2(evt) {
     
 }
 
-columns.forEach((torre) => {
-    torre.addEventListener("click", position2);
+columns.forEach((tower) => {
+    tower.addEventListener("click", position2);
 });
 
 // OK
 function verticalWin(array, position) {
 
-    let closesColor = 0
+    let closesColor         = 0
 
     for(let i = position; i < array.length; i++) {
 
         let discBeforeColor = array[i].firstChild.classList
 
         if(discBeforeColor[0] === currentColor) {
-
-            closesColor += 1
-
+            closesColor     += 1
         } else if(discBeforeColor !== currentColor) {
-
             break
-
         }
 
     }
@@ -124,162 +123,111 @@ function verticalWin(array, position) {
     
 }
 
-// OK
 function horizontalWin(arrayCell, position) {
 
-    let towerNumber = Number(arrayCell[position].parentNode.id[6])
-    
-    let closesColor = 1
-
     let discToVerify
+    let towerNumber     = Number(arrayCell[position].parentNode.id[6])
+    let closesColor     = 1
     
-    //olhar para a esquerda
     for(let i = towerNumber - 1; i >= 0; i--) {
 
         discToVerify = document.querySelector(`#column${i}`).childNodes[position].firstChild
 
         if(discToVerify !== null) {
-
             let colorToCompare = discToVerify.classList[0]
 
             if(colorToCompare === currentColor) {
-
                 closesColor += 1
-
             } else {
-
                 break;
-
             }
+
         } else {
-
             break
-
         }
     }
 
-    //olhar para a direita
     for(let j = towerNumber + 1; j < 7; j++) {
  
         discToVerify = document.querySelector(`#column${j}`).childNodes[position].firstChild
 
         if(discToVerify !== null) {
-
             let colorToCompare = discToVerify.classList[0]
 
             if(colorToCompare === currentColor) {
-
                 closesColor += 1
-
             } else {
-
                 break
-
             }
 
         } else {
-
             break
-
         }
-
     }
 
-    //bateu 4 ganhou
     victory(closesColor);
 
 }
 
-// OK
 function diagonal1(arrayCell, position) {
-
-    let towerNumber = Number(arrayCell[position].parentNode.id[6])
-
-    let closesColor = 1
-
     let discToVerify
+    let towerNumber     = Number(arrayCell[position].parentNode.id[6])
+    let closesColor     = 1
+    let k               = 1
+    let y               = 1
 
-    let k = 1
+    for(let i = towerNumber - 1; i >= 0; i--) {
 
-    let y = 1
-    //olhar para a esquerda - baixo
-    for(let i = towerNumber - 1; i >= 0; i--) { //olha esquerda
-
-
-        let nextPosition = position - k //baixo
-
-        discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition]
+        let nextPosition    = position - k
+        discToVerify        = document.querySelector(`#column${i}`).childNodes[nextPosition]
 
         if(discToVerify !== undefined) {
-        
-
-            discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
-
-            k += 1
+            discToVerify    = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
+            k               += 1
 
             if(discToVerify !== null) {
-
-
                 let colorToCompare = discToVerify.classList[0]
 
                 if(colorToCompare === currentColor) {
-
                     closesColor += 1
-
                 } else {
-
                     break
-
                 }
+
             } else {
-                
                 break
-            
             }
 
         } else {
-
             break
-
         }
     }
 
-    //olhar para a direita - cima
-    for(let i = towerNumber + 1; i < 7; i++) { //olha direita
+    for(let i = towerNumber + 1; i < 7; i++) {
 
-        let nextPosition = position + y //cima
+        let nextPosition    = position + y 
+        discToVerify        = document.querySelector(`#column${i}`).childNodes[nextPosition]
 
-        discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition]
         if(discToVerify !== undefined) {        
 
-            discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
-
-            y += 1
+            discToVerify    = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
+            y               += 1
 
             if(discToVerify !== null) {
-
-
                 let colorToCompare = discToVerify.classList[0]
 
                 if(colorToCompare === currentColor) {
-
                     closesColor += 1
-
                 } else {
-
                     break
-
                 }
+
             } else {
-                
                 break
-            
             }
 
         } else {
-
             break
-
         }
     }
 
@@ -287,92 +235,65 @@ function diagonal1(arrayCell, position) {
 
 }
 
-// 
 function diagonal2(arrayCell, position) {
 
-    let towerNumber = Number(arrayCell[position].parentNode.id[6])
-
-    let closesColor = 1
-
     let discToVerify
+    let towerNumber     = Number(arrayCell[position].parentNode.id[6])
+    let closesColor     = 1
+    let k               = 1
+    let y               = 1
 
-    let k = 1
+    for(let i = towerNumber - 1; i >= 0; i--) { 
+    
+        let nextPosition    = position + k
+        discToVerify        = document.querySelector(`#column${i}`).childNodes[nextPosition]
 
-    let y = 1
-    //olhar para a esquerda - cima
-    for(let i = towerNumber - 1; i >= 0; i--) { // olha esquerda
-        
-
-        let nextPosition = position + k
-
-        discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition]
         if(discToVerify !== undefined) {       
-
-            discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
-
-            k += 1
+            discToVerify    = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
+            k               += 1
 
             if(discToVerify !== null) {
-
                 let colorToCompare = discToVerify.classList[0]
 
                 if(colorToCompare === currentColor) {
-
                     closesColor += 1
-
                 } else {
-
                     break
-
                 }
+
             } else {
-
                 break
-
             }
 
         } else {
-
             break
-
         }
     }
 
-    //olhar para a direita - cima
-    for(let i = towerNumber + 1; i < 7; i++) { //olha direita
+    for(let i = towerNumber + 1; i < 7; i++) {
 
-        let nextPosition = position - y // baixo
-
-        discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition]
-        if(discToVerify !== undefined) {
+        let nextPosition    = position - y
+        discToVerify        = document.querySelector(`#column${i}`).childNodes[nextPosition]
         
-            discToVerify = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
-
-            y += 1
+        if(discToVerify !== undefined) {
+            discToVerify    = document.querySelector(`#column${i}`).childNodes[nextPosition].firstChild
+            y               += 1
 
             if(discToVerify !== null) {
-
                 let colorToCompare = discToVerify.classList[0]
 
                 if(colorToCompare === currentColor) {
-
                     closesColor += 1
-
                 } else {
-
                     break
-
                 }
+
             } else {
-
                 break
-
             }
 
         } else {
-
             break
-
         }
     }
 
@@ -402,14 +323,12 @@ function stopGame(cond) {
             document.getElementById(`column${k}`).removeEventListener('click', position2)
             
         }
-    
     } else {
         for(let k = 0; k < 7; k++) {
 
             document.getElementById(`column${k}`).addEventListener('click', position2)
             
         }
-    
     }
 
 }
