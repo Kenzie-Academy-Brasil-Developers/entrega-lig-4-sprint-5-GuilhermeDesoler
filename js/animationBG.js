@@ -44,7 +44,7 @@ function openModal(){
   text.classList.add('textFinal')
 
   if (discCount === 42) {
-    text.innerText = "This match tied!!"
+    text.innerText = "This match drew!!"
   }else if(currentColor === 'red' && discCount <= 42) {
     text.innerText = "Player 1 wins!!"
   } else if (currentColor === 'black' && discCount <= 42) {
