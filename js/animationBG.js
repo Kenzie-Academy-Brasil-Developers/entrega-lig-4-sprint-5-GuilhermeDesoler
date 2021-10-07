@@ -43,9 +43,11 @@ function openModal(){
   const text = document.createElement('p');
   text.classList.add('textFinal')
 
-  if(currentColor === 'red') {
+  if (discCount === 42) {
+    text.innerText = "This match tied!!"
+  }else if(currentColor === 'red' && discCount <= 42) {
     text.innerText = "Player 1 wins!!"
-  } else if (currentColor === 'black') {
+  } else if (currentColor === 'black' && discCount <= 42) {
     text.innerText = "Player 2 wins!!"
   }
 
@@ -53,7 +55,7 @@ function openModal(){
 
   const resetButton = document.createElement('button');
   resetButton.classList.add('reset-button');
-  resetButton.innerText = "Play again"
-  // resetButton.onclick = closeModal();
+  resetButton.innerText = "PLAY AGAIN"
+  resetButton.setAttribute("onclick", "resetGame()");
   modal.appendChild(resetButton);
 }
