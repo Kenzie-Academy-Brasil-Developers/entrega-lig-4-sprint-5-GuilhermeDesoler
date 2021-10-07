@@ -19,11 +19,11 @@ function gameBoard() {
 
 gameBoard()
 
-const columns = document.querySelectorAll('section')
+const columns    = document.querySelectorAll('section')
 
-let player = false
-let position = 0
-let discCount = 0
+let player       = false
+let position     = 0
+let discCount    = 0
 let currentColor = ''
 
 function position2(evt) {
