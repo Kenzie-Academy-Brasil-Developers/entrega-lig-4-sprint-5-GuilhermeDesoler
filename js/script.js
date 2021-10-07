@@ -63,6 +63,7 @@ function position2(evt) {
         stopGame()
     }
    
+    console.log(player);
 
     verticalWin(click, position)
     horizontalWin(click, position)
@@ -88,11 +89,6 @@ function verticalWin(array, position) {
 
             closesColor += 1
 
-            if(closesColor === 4) {
-                console.log('Vertical Win!!!')
-                stopGame()
-            }
-
         } else if(discBeforeColor !== currentColor) {
 
             break
@@ -100,6 +96,9 @@ function verticalWin(array, position) {
         }
 
     }
+    
+    victory(closesColor);
+
     
 }
 
@@ -165,10 +164,7 @@ function horizontalWin(arrayCell, position) {
     }
 
     //bateu 4 ganhou
-    if(closesColor >= 4) {
-        console.log('Horizontal Win!!!')
-        stopGame()
-    }
+    victory(closesColor);
 
 }
 
@@ -265,10 +261,7 @@ function diagonal1(arrayCell, position) {
         }
     }
 
-    if(closesColor >= 4) {
-        stopGame()
-        console.log('cabou')
-    }
+    victory(closesColor);
 
 }
 
@@ -361,11 +354,15 @@ function diagonal2(arrayCell, position) {
         }
     }
 
+    victory(closesColor);
+
+}
+
+function victory(closesColor) {
     if(closesColor >= 4) {
         stopGame()
-        console.log('cabou2')
+        setTimeout(() => {openModal()}, 1000);
     }
-
 }
 
 function draw() {
