@@ -26,7 +26,7 @@ for (let i = 0; i < 11; i++) {
 }
 
 function closeModal() {
-    document.getElementById('bgModal').style.top = '-100%'
+    document.getElementById('bgModal').style.top = '-150%'
 }
 
 function openModal() {
