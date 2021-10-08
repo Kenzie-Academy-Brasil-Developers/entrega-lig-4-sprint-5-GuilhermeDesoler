@@ -101,7 +101,6 @@ columns.forEach((tower) => {
     tower.addEventListener("click", position2);
 });
 
-// OK
 function verticalWin(array, position) {
 
     let closesColor         = 0
