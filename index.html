@@ -8,14 +8,30 @@
     <title>Lig-4</title>
 </head>
 <body>
-    <header>
-        <h1>Lig-4</h1>
+
+    <div class="bg-modal" id="bgModal">
+        <div class="modal" id="modal">
+            <h1>Lig-4</h1>
+            <h3>Rules</h3>
+            <p><b>Player 1</b> assumes one color and <b>Player 2</b> the other, respectively <b>red</b> and <b>black</b>.</p>
+            <p>Players add to the board one piece at a time.</p>
+            <p>The first to place <b>4</b> adjacent pieces wins.</p>
+            <button class="play-button" onclick="closeModal()">PLAY</button>
+
+        </div>
+    </div>
+
+    <header id="header">
+        <h1>Lig - 4</h1>
     </header>
 
     <main id="main">
 
     </main>
 
+    <ul class="animation-bg"></ul>
+
+    <script src="js/animationBG.js"></script>
     <script src="js/script.js"></script>
 
 </body>
